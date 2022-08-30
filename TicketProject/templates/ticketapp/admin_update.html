@@ -1,0 +1,26 @@
+{% include 'base.html' %}
+
+{% block title %}
+<title>Admin Update</title>
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h2>Raise Ticket</h2>
+    {% if user.is_authenticated %}
+
+        <div>
+            <form method="post">
+                {% csrf_token %}
+
+                {{form.as_p}}
+        <br>
+                <input type="submit" value="Solve Ticket">
+            </form>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+

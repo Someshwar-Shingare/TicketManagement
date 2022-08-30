@@ -1,0 +1,65 @@
+{% include 'base.html' %}
+
+{% block title %}
+<title>Home</title>
+{% endblock %}
+
+{% block content %}
+<span>
+    <button style="margin-left: 50%;">
+        <a href="{% url 'logout' %}">Logout</a>
+    </button>
+
+
+</span>
+  <h2>Raise Ticket</h2>
+    {% if user.is_authenticated %}
+
+        <div>
+            <form method="post">
+                {% csrf_token %}
+                 {{form.as_p}}
+        <br>
+                <input type="submit" value="Generate Ticket">
+            </form>
+        </div>
+<br><br>
+        <div>
+
+            <table border="2px">
+                <tr>
+                    <th>Ticket Number</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+
+
+                </tr>
+
+                <h2>Your Tickets</h2>
+                {% for tik in tiks %}
+
+                    {% if user.id == tik.current_user.id %}
+                        <tr>
+                            <td>{{tik.id}}</td>
+                            <td>{{tik.price}}</td>
+                            <td>{{tik.category}}</td>
+                            <td>{{tik.status}}</td>
+                            <td>{{tik.date}}</td>
+                            <td><button><a href="{% url 'update_user' tik.id%}">Update</a></button></td>
+                            <td><button><a href="{% url 'delete_user' tik.id%}">Delete</a></button></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+        </table>
+        </div>
+    {% endif %}
+
+
+
+
+{% endblock %}
+

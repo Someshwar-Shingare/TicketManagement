@@ -1,0 +1,42 @@
+{% include 'base.html' %}
+
+{% block title %}
+<title>Home</title>
+{% endblock %}
+
+{% block content %}
+<span>
+    <button style="margin-left: 50%;">
+        <a href="{% url 'logout' %}">Logout</a>
+    </button>
+</span>
+    {% if user.is_superuser %}
+        <div>
+            <table border="2px">
+                <tr>
+                    <th>Ticket Number</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ticket.id}}</td>
+                        <td>{{ticket.price}}</td>
+                        <td>{{ticket.category}}</td>
+                        <td>{{ticket.status}}</td>
+                        <td>{{ticket.date}}</td>
+                        <td>{{ticket.current_user}}</td>
+                        <td><button><a href="{% url 'update_admin' ticket.id%}">Update</a></button></td>
+                        <td><button><a href="{% url 'delete_admin' ticket.id%}">Delete</a></button></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
